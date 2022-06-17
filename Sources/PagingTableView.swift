@@ -40,7 +40,9 @@ open class PagingTableView: UITableView {
   }
 
   private func paginate(_ tableView: PagingTableView, forIndexAt indexPath: IndexPath) {
+    let sectionCount = tableView.dataSource?.numberOfSections?(in: tableView) ?? 1
     let itemCount = tableView.dataSource?.tableView(tableView, numberOfRowsInSection: indexPath.section) ?? 0
+    guard indexPath.section == sectionCount - 1 else { return }
     guard indexPath.row == itemCount - 1 else { return }
     guard previousItemCount != itemCount else { return }
     page += 1
